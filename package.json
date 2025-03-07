@@ -1,12 +1,13 @@
 {
   "name": "teste-devops-Act",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Aplicação web simples para CI/CD",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "test": "jest",
     "build": "echo 'Nenhuma construção necessária'"  
+    "build": "mkdir -p dist && echo 'Arquivo gerado durante o build' > dist/build.txt"
   },
   "dependencies": {
     "express": "^4.18.2"
