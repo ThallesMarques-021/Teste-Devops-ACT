@@ -13,3 +13,11 @@ deploy para um usuário ou grupo do github
 aplicação em um ambiente de teste.
 4. O pipeline deve notificar o desenvolvedor via e-mail se o processo de CI/CD falhar em
 qualquer etapa.
+
+
+Segue abaixo um desenho da Arquitetura do projeto.
+
+
+
+![image](https://github.com/user-attachments/assets/01f93f57-a895-401c-9ba5-2a34c2f36ec7)
+
