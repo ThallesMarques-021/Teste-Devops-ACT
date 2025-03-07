@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar testes unitários
+        run: npm test
+
+      - name: Construir a aplicação
+        run: npm run build
+
+      - name: Armazenar artefato da aplicação
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: dist/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar artefato
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build
+          path: dist/
+
+      - name: Criar release no GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/**
+          tag_name: v1.0.${{ github.run_number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    needs: release
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy da aplicação
+        run: echo "Simulação de Deploy"
+
+      - name: Notificar sucesso
+        if: success()
+        run: echo "Deploy realizado com sucesso"
+
+  notify:
+    needs: [build, release, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar e-mail de erro
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "Falha no Pipeline CI/CD"
+          to: "seu-email@gmail.com"
+          body: "O pipeline falhou em uma das etapas."
