@@ -20,5 +20,6 @@ Segue abaixo um desenho da Arquitetura da Pipeline
 
 
 
-![image](https://github.com/user-attachments/assets/01f93f57-a895-401c-9ba5-2a34c2f36ec7)
+![image](https://github.com/user-attachments/assets/bd3471ca-bc9d-496d-b04a-7397e6111123)
+
 
