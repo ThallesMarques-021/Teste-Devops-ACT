@@ -1,6 +1,6 @@
 {
   "name": "teste-devops-Act",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Aplicação web simples para CI/CD",
   "main": "src/server.js",
   "scripts": {
