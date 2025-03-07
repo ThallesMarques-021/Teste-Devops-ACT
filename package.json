@@ -4,9 +4,9 @@
   "description": "Aplicação web simples para CI/CD",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",  // Executa o servidor
+    "start": "node src/server.js",
     "test": "jest",
-    "build": "echo 'Nenhuma construção necessária'"  // Apenas uma mensagem simples para o build
+    "build": "echo 'Nenhuma construção necessária'"  
   },
   "dependencies": {
     "express": "^4.18.2"
