@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
-
+      
+permissions:
+  contents: write   # Permite a criação de releases
+  actions: write    # Permite a execução de ações
+  id-token: write   # Permite o uso de tokens de identidade (se necessário)
+  
 jobs:
   build:
     runs-on: ubuntu-latest
