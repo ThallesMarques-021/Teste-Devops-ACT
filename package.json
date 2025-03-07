@@ -1,11 +1,12 @@
 {
-  "name": "teste-devops-act",
-  "version": "1.0.1",
+  "name": "teste-devops-Act",
+  "version": "1.0.0",
   "description": "Aplicação web simples para CI/CD",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "jest"
+    "start": "node src/server.js",  // Executa o servidor
+    "test": "jest",
+    "build": "echo 'Nenhuma construção necessária'"  // Apenas uma mensagem simples para o build
   },
   "dependencies": {
     "express": "^4.18.2"
