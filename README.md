@@ -15,7 +15,8 @@ aplicação em um ambiente de teste.
 qualquer etapa.
 
 
-Segue abaixo um desenho da Arquitetura da Pipeline.
+
+Segue abaixo um desenho da Arquitetura da Pipeline
 
 
 
