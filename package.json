@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "jest",
-    "build": "echo 'Nenhuma construção necessária'"  
+    "build": "echo 'Nenhuma construção necessária'" ,
     "build": "mkdir -p dist && echo 'Arquivo gerado durante o build' > dist/build.txt"
   },
   "dependencies": {
