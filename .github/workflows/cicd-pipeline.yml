@@ -85,5 +85,5 @@ jobs:
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASS }}
           subject: "Falha no Pipeline CI/CD"
-          to: "seu-email@gmail.com"
+          to: "thalles.marques@outlook.com.br"
           body: "O pipeline falhou em uma das etapas."
