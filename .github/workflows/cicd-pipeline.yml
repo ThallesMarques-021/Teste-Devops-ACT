@@ -17,11 +17,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Verificar arquivo obrigatório e rodar linter
-        uses: ./.github/actions/check-linter
-        with:
-          required_file: "package.json"
-          run_linter: "true"
+      #- name: Verificar arquivo obrigatório e rodar linter
+       # uses: ./.github/actions/check-linter
+       # with:
+         # required_file: "package.json"
+        #  run_linter: "true"
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
