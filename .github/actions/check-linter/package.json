@@ -4,6 +4,7 @@
   "description": "GitHub Action para validar arquivos e executar linter",
   "main": "dist/index.js",
   "scripts": {
+    "test": "echo \"Nenhum teste definido\" && exit 1",
     "build": "tsc",
     "prepare": "npx @vercel/ncc build index.ts -o dist"
   },
