@@ -1,0 +1,14 @@
+name: "Check Linter & Quality Gate"
+description: "Valida se um arquivo obrigatório existe e executa um linter"
+author: "Seu Nome"
+inputs:
+  required_file:
+    description: "Nome do arquivo obrigatório"
+    required: true
+  run_linter:
+    description: "Se deve rodar o linter"
+    required: false
+    default: "true"
+runs:
+  using: "node16"
+  main: "dist/index.js"
