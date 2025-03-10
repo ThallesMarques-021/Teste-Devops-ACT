@@ -71,7 +71,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'  # Garante que os binários sejam baixados corretamente
+          
 
       - name: Verificar instalação do Java
         run: |
