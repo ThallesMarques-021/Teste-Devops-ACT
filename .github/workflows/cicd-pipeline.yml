@@ -17,12 +17,6 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      #- name: Verificar arquivo obrigatório e rodar linter
-       # uses: ./.github/actions/check-linter
-       # with:
-        #  required_file: "package.json"
-         # run_linter: "true"
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,10 +31,10 @@ jobs:
       - name: Construir a aplicação
         run: |
           npm run build
-          mkdir -p dist && echo "Arquivo gerado durante o build" > dist/build.txt  # Garantir que dist seja criada
+          mkdir -p dist && echo "Arquivo gerado durante o build" > dist/build.txt
 
       - name: Verificar conteúdo da pasta dist
-        run: ls -l dist  # Verifique o conteúdo antes de carregar o artefato
+        run: ls -l dist
 
       - name: Armazenar artefato da aplicação
         uses: actions/upload-artifact@v4
@@ -65,10 +59,14 @@ jobs:
 
       - name: Executar análise estática com SonarQube
         uses: SonarSource/sonarcloud-github-action@v1.5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-          organization: ${{ secrets.SONAR_ORG }}
+          args: >
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.sources=.
+            -Dsonar.host.url=https://sonarcloud.io
 
   release:
     needs: [build, sonarqube_scan]
