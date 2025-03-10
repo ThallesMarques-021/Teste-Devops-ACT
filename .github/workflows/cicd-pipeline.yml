@@ -72,6 +72,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Verificar instalação do Java
+        run: |
+          java -version
+          echo $JAVA_HOME
+
       - name: Executar análise SonarQube
         uses: SonarSource/sonarcloud-github-action@v1.5
         env:
