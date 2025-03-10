@@ -72,10 +72,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Verificar instalação do Java
+      - name: Validar instalação do Java
         run: |
+          echo "Verificando Java instalado..."
           java -version
-          echo $JAVA_HOME
+          echo "JAVA_HOME está definido como: $JAVA_HOME"
+          ls -l $JAVA_HOME/bin
 
       - name: Executar análise SonarQube
         uses: SonarSource/sonarcloud-github-action@v1.5
