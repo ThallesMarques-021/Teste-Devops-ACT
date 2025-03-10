@@ -42,22 +42,26 @@ jobs:
           name: app-build
           path: dist/
 
-  sonarqube_scan:
+  sonar_analysis:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+      - name: Configurar Java 17
+        uses: actions/setup-java@v3
         with:
-          node-version: 18
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Instalar dependências
-        run: npm install
+      - name: Configurar SonarQube
+        run: |
+          echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
+          echo "SONAR_PROJECT_KEY=${{ secrets.SONAR_PROJECT_KEY }}" >> $GITHUB_ENV
+          echo "SONAR_ORG=${{ secrets.SONAR_ORG }}" >> $GITHUB_ENV
 
-      - name: Executar análise estática com SonarQube
+      - name: Executar análise SonarQube
         uses: SonarSource/sonarcloud-github-action@v1.5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -69,7 +73,7 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
 
   release:
-    needs: [build, sonarqube_scan]
+    needs: sonar_analysis
     runs-on: ubuntu-latest
     steps:
       - name: Baixar artefato
@@ -99,7 +103,7 @@ jobs:
         run: echo "Deploy realizado com sucesso"
 
   notify:
-    needs: [build, sonarqube_scan, release, deploy]
+    needs: [build, sonar_analysis, release, deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:
