@@ -17,11 +17,11 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      #- name: Verificar arquivo obrigatório e rodar linter
-       # uses: ./.github/actions/check-linter
-       # with:
-         # required_file: "package.json"
-        #  run_linter: "true"
+      - name: Verificar arquivo obrigatório e rodar linter
+        uses: ./.github/actions/check-linter
+        with:
+          required_file: "package.json"
+          run_linter: "true"
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
@@ -48,8 +48,30 @@ jobs:
           name: app-build
           path: dist/
 
-  release:
+  sonarqube_scan:
     needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar análise estática com SonarQube
+        uses: SonarSource/sonarcloud-github-action@v1.5
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+          organization: ${{ secrets.SONAR_ORG }}
+
+  release:
+    needs: [build, sonarqube_scan]
     runs-on: ubuntu-latest
     steps:
       - name: Baixar artefato
@@ -79,7 +101,7 @@ jobs:
         run: echo "Deploy realizado com sucesso"
 
   notify:
-    needs: [build, release, deploy]
+    needs: [build, sonarqube_scan, release, deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:
